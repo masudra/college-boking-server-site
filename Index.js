@@ -28,6 +28,7 @@ async function run() {
         const CampusCollection= client.db("campusConnect").collection("collegeCampus");
         const reviewCollection= client.db("campusConnect").collection("review");
         const imageGalleryCollection= client.db("campusConnect").collection("imagegallery");
+        const researchNameCollection= client.db("campusConnect").collection("researchName");
 
     // get all data
     app.get('/collegeCampus',async(req,res)=>{
@@ -55,10 +56,18 @@ async function run() {
     })
 
     // *********Image Gallery
-    
+
     // get data for  imagegallery 
     app.get('/imagegallery',async(req,res)=>{
         const cursor = imageGalleryCollection.find();
+        const result = await cursor.toArray();
+        res.send(result)
+    })
+
+
+    // get data for  researchName
+    app.get('/research',async(req,res)=>{
+        const cursor = researchNameCollection.find();
         const result = await cursor.toArray();
         res.send(result)
     })
