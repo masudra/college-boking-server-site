@@ -25,53 +25,67 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
 
-        const CampusCollection= client.db("campusConnect").collection("collegeCampus");
-        const reviewCollection= client.db("campusConnect").collection("review");
-        const imageGalleryCollection= client.db("campusConnect").collection("imagegallery");
-        const researchNameCollection= client.db("campusConnect").collection("researchName");
+        const CampusCollection = client.db("campusConnect").collection("collegeCampus");
+        const imageGalleryCollection = client.db("campusConnect").collection("imagegallery");
+        const researchNameCollection = client.db("campusConnect").collection("researchName");
+        const admissionCollection = client.db("campusConnect").collection("admissionData");
+        const reviewCollection = client.db("campusConnect").collection("review");
 
-    // get all data
-    app.get('/collegeCampus',async(req,res)=>{
-        const cursor = CampusCollection.find();
-        const result = await cursor.toArray();
-        res.send(result)
-    })
-
-
-
-    // ****************  review   **************************
-
-     // ***** review Post add
-    app.post('/review',async(req,res)=>{
-      const addDatas = req.body;
-      const result = await reviewCollection.insertOne(addDatas);
-      res.send(result);
-    })
-
-    // get all data
-    app.get('/review',async(req,res)=>{
-        const cursor = reviewCollection.find();
-        const result = await cursor.toArray();
-        res.send(result)
-    })
-
-    // *********Image Gallery
-
-    // get data for  imagegallery 
-    app.get('/imagegallery',async(req,res)=>{
-        const cursor = imageGalleryCollection.find();
-        const result = await cursor.toArray();
-        res.send(result)
-    })
+        // get all data
+        app.get('/collegeCampus', async (req, res) => {
+            const cursor = CampusCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
 
 
-    // get data for  researchName
-    app.get('/research',async(req,res)=>{
-        const cursor = researchNameCollection.find();
-        const result = await cursor.toArray();
-        res.send(result)
-    })
 
+        // ****************  review   **************************
+
+        // ***** admissionData Post add
+        app.post('/admissionData', async (req, res) => {
+            const addDatas = req.body;
+            const result = await admissionCollection.insertOne(addDatas);
+            res.send(result);
+        })
+
+        // get all data
+        app.get('/admissionData', async (req, res) => {
+            const cursor = admissionCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        // *********Image Gallery
+
+        // get data for  imagegallery 
+        app.get('/imagegallery', async (req, res) => {
+            const cursor = imageGalleryCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+
+        // get data for  researchName
+        app.get('/research', async (req, res) => {
+            const cursor = researchNameCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        // *****************   Review******
+        app.post('/review', async (req, res) => {
+            const addDatas = req.body;
+            const result = await reviewCollection.insertOne(addDatas);
+            res.send(result);
+        })
+
+        // get all data
+        app.get('/review', async (req, res) => {
+            const cursor = reviewCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
